@@ -1,0 +1,4 @@
+/bin/
+/shell-charm-progress
+__pycache__/
+*.pyc
