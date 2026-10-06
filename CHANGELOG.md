@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0 — in progress
+
+- Add a GitHub Actions workflow that notifies the Homebrew tap when a stable
+  version tag is pushed, and document Homebrew installation and release setup.
+
 ## 1.0.0 — 2026-09-29
 
 First stable release.

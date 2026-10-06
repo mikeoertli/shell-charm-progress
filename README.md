@@ -54,6 +54,17 @@ install -m 755 bin/shell-charm-progress "$HOME/.local/bin/shell-charm-progress"
 demo; there is no helper file to copy, dotfiles dependency, background service,
 Go runtime, or project-specific setup.
 
+### Homebrew
+
+```sh
+brew install mikeoertli/tap/shell-charm-progress
+brew update
+brew upgrade mikeoertli/tap/shell-charm-progress
+```
+
+Homebrew installs the dependencies declared by the tap. A compatible prebuilt
+bottle avoids local compilation; otherwise Homebrew builds from source.
+
 ## Copy this into a script
 
 Works in Bash 3.2+, Zsh, and sh/dash. This complete example simulates three jobs:
@@ -248,7 +259,7 @@ variable or linker override is needed.
 
 ```sh
 shell-charm-progress --version
-# shell-charm-progress 1.0.0
+# shell-charm-progress 1.1.0
 ```
 
 Record changes under the matching `in progress` heading in [CHANGELOG.md](CHANGELOG.md).
@@ -256,6 +267,25 @@ When bumping the version, date the previous heading (`YYYY-MM-DD`), update
 `VERSION`, and add a new `## <version> — in progress` section. Use semantic
 versioning; development versions and changelog entries do not require a Git tag
 or a published release.
+
+### Homebrew releases
+
+[`.github/workflows/homebrew.yml`](.github/workflows/homebrew.yml) notifies
+[`mikeoertli/homebrew-tap`](https://github.com/mikeoertli/homebrew-tap) when a
+stable `vMAJOR.MINOR.PATCH` tag is pushed. Keep the tag aligned with `VERSION`
+and include the workflow in the tagged commit. For the current version, the
+release tag is `v1.1.0`.
+
+The workflow uses the **TAP_DISPATCH_TOKEN** repository secret to trigger the
+tap's release updater for `shell-charm-progress`. The token needs **Actions: Read and write**
+access to the tap repository. See the [tap's setup instructions](https://github.com/mikeoertli/homebrew-tap#notify-the-tap-when-a-project-is-tagged)
+for token configuration and the publishing process.
+
+The tap opens an update PR, builds and tests its packages, and provides a
+separate bottle-publishing step. The notification does not publish the package
+on its own. Prerelease tags are skipped, and existing tags are not retriggered.
+After the tap update is published, use `brew update` and `brew upgrade` on each
+computer to install it. Ordinary branch pushes do not change the packaged version.
 
 ## Demo and development
 
